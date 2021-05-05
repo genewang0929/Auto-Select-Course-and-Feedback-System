@@ -6,7 +6,7 @@ public class app {
         JFrame mainApp=new JFrame("自動選課小幫手");
         mainApp.setSize(500,500);
         mainApp.setVisible(true);
-        mainApp.setLocationRelativeTo(null);
+        mainApp.setLocationRelativeTo(null);//置中
 
     }
 }
