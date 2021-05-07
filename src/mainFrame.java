@@ -1,5 +1,3 @@
-import org.w3c.dom.html.HTMLIsIndexElement;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

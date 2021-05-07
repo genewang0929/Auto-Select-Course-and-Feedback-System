@@ -32,9 +32,13 @@ public class loginFrame extends JFrame implements ActionListener {
         passowrd.setBounds(100,60,150,30);
 
         //Label
-        JLabel label=new JLabel("輸入帳號密碼");
+        JLabel label,label1,label2;
+        label=new JLabel("輸入帳號密碼");
         label.setBounds(200,0,100,30);
-
+        label1=new JLabel("帳號");
+        label1.setBounds(30,30,150,30);
+        label2=new JLabel("密碼");
+        label2.setBounds(30,60,150,30);
         //Panel
         JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         panel.setLayout(null);
@@ -42,25 +46,20 @@ public class loginFrame extends JFrame implements ActionListener {
         panel.add(passowrd);
         panel.add(account);
         panel.add(label);
+        panel.add(label1);
+        panel.add(label2);
         panel.add(submit);
         panel.add(back);
 
         loginFrame.setVisible(true);//這放最後面
     }
     public void errorMessage(int type){
-        JFrame error=new JFrame("錯誤");
-        error.setSize(250,80);
-        error.setLocationRelativeTo(null);
         String msg="";
         if(type==1)
             msg="帳號錯誤或不存在";
         else if(type==2)
             msg="密碼錯誤";
-        JLabel label=new JLabel(msg);
-        JPanel panel=new JPanel();
-        panel.add(label);
-        error.setContentPane(panel);
-        error.setVisible(true);
+        JOptionPane.showMessageDialog(new JPanel(),msg,"錯誤",JOptionPane.ERROR_MESSAGE);
     }
     public void lastPage(){
         loginFrame.dispose();
@@ -81,8 +80,8 @@ public class loginFrame extends JFrame implements ActionListener {
             int pass=checkAccount();
             if(pass==0){
                 loginFrame.dispose();
-                //TODO
-                //登陸後城市主功能
+                autoClickerFrame next=new autoClickerFrame();
+                next.open();
             }
             else
                 errorMessage(pass);
