@@ -1,5 +1,4 @@
 import javax.swing.*;
-import javax.swing.text.JTextComponent;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -67,7 +66,7 @@ public class loginFrame extends JFrame implements ActionListener {
         tmp.open();
     }
     public int checkAccount(){
-        return 2;
+        return 0;
         //TODO
         //驗證帳密是否正確，負責資料庫的人寫
     }
@@ -80,7 +79,7 @@ public class loginFrame extends JFrame implements ActionListener {
             int pass=checkAccount();
             if(pass==0){
                 loginFrame.dispose();
-                autoClickerFrame next=new autoClickerFrame();
+                chooseFunctionFrame next=new chooseFunctionFrame();
                 next.open();
             }
             else
