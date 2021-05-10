@@ -69,7 +69,7 @@ public class createAccountFrame extends JFrame implements ActionListener {
     public boolean checkPassword(){
         String a=new String(password.getPassword()),b=new String(passwordCheck.getPassword());
         if(a.length()<8||b.length()<8){
-            JOptionPane.showMessageDialog(new JPanel(), "輸入的密碼需大於8個字", "錯誤", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(new JPanel(), "輸入的密碼不能小於8個字", "錯誤", JOptionPane.ERROR_MESSAGE);
             return false;
         }
         else if(!a.equals(b)) {
