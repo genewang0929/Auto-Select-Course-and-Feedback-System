@@ -94,6 +94,7 @@ public class enterClassFrame extends JFrame implements ActionListener {
             lastPage();
         else if(event.getSource()==submit){
             startChooseClass();
+            enterClassFrame.dispose();
         }
     }
 }
