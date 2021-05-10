@@ -3,10 +3,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+
 public class enterClassFrame extends JFrame implements ActionListener {
     private JFrame enterClassFrame;
     private JButton back,submit;
     private JTextArea className;
+    private String[] errorMessage=new String[3];//["課號長度太短","課號長度太長","課號不存在"]
     public void open(){
         //主介面
         enterClassFrame=new JFrame("登入");
@@ -49,26 +51,48 @@ public class enterClassFrame extends JFrame implements ActionListener {
     public void errorMessage(int type){
         String msg="";
         if(type==1)
-            msg="帳號錯誤或不存在";
+            msg="不存在";
         else if(type==2)
             msg="密碼錯誤";
         JOptionPane.showMessageDialog(new JPanel(),msg,"錯誤",JOptionPane.ERROR_MESSAGE);
+    }
+    public void openBrowser(){
+        try {
+            String url="https://ais.ntou.edu.tw/MainFrame.aspx";//請先提前登入教學務系統
+            java.net.URI uri = java.net.URI.create(url);
+            // 獲取當前系統桌面擴充套件
+            java.awt.Desktop dp = java.awt.Desktop.getDesktop();
+            // 判斷系統桌面是否支援要執行的功能
+            if (dp.isSupported(java.awt.Desktop.Action.BROWSE)) {
+                dp.browse(uri);
+                // 獲取系統預設瀏覽器開啟連結
+            }
+        } catch (java.lang.NullPointerException e) {
+            // 此為uri為空時丟擲異常
+            e.printStackTrace();
+        } catch (java.io.IOException e) {
+            // 此為無法獲取系統預設瀏覽器
+            e.printStackTrace();
+        }
+    }
+    public void startChooseClass(){
+        String[] name=className.getText().split("\n");//使用者輸入的課號
+        openBrowser();
+        //TODO
+        //1.從教學務系統首頁進入選課頁面
+        //2.一個填入課號(自動填入)
     }
     public void lastPage(){
         enterClassFrame.dispose();
         chooseFunctionFrame tmp=new chooseFunctionFrame();
         tmp.open();
     }
-    
-
     @Override
     public void actionPerformed(ActionEvent event) {
         if(event.getSource()==back)
             lastPage();
         else if(event.getSource()==submit){
-            String[] name=className.getText().split("\n");
-            System.out.println(name[2]);
-
+            startChooseClass();
         }
     }
 }
