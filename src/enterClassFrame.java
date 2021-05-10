@@ -81,6 +81,7 @@ public class enterClassFrame extends JFrame implements ActionListener {
         //TODO
         //1.從教學務系統首頁進入選課頁面
         //2.一個填入課號(自動填入)
+        new autoClicker(1);
     }
     public void lastPage(){
         enterClassFrame.dispose();
