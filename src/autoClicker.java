@@ -39,7 +39,7 @@ public class autoClicker extends KeyAdapter {
             Robot r = new Robot();
             r.mousePress(InputEvent.BUTTON1_DOWN_MASK);
             r.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
-            r.mouseMove(x, y);
+            r.mouseMove(377, 339);
             Thread.sleep(4000);
             Thread.interrupted();
         } catch (AWTException e) {
