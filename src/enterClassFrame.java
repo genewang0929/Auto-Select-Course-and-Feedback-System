@@ -2,6 +2,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.event.InputEvent;
 
 
 public class enterClassFrame extends JFrame implements ActionListener {
@@ -81,7 +84,30 @@ public class enterClassFrame extends JFrame implements ActionListener {
         //TODO
         //1.從教學務系統首頁進入選課頁面
         //2.一個填入課號(自動填入)
-        new autoClicker(1);
+        autoClicker tool=new autoClicker();
+
+        try {
+            Thread.sleep(6000);
+            Robot r = new Robot();
+            r.mouseMove(80, 255); //教務系統
+            r.mousePress(InputEvent.BUTTON1_DOWN_MASK);
+            r.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
+            Thread.sleep(2000);
+            r.mouseMove(80, 320); //選課系統
+            r.mousePress(InputEvent.BUTTON1_DOWN_MASK);
+            r.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
+            Thread.sleep(2000);
+            r.mouseMove(100, 370); //線上即時加退選
+            r.mousePress(InputEvent.BUTTON1_DOWN_MASK);
+            r.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
+            Thread.sleep(2000);
+            //Thread.interrupted();
+        } catch (AWTException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        tool.mod1();
     }
     public void lastPage(){
         enterClassFrame.dispose();
@@ -93,8 +119,8 @@ public class enterClassFrame extends JFrame implements ActionListener {
         if(event.getSource()==back)
             lastPage();
         else if(event.getSource()==submit){
-            startChooseClass();
             enterClassFrame.dispose();
+            startChooseClass();
         }
     }
 }

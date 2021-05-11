@@ -9,7 +9,7 @@ import javax.swing.*;
 public class autoClicker extends KeyAdapter {
     private int x,y;
     private JFrame clicker;
-    public autoClicker(int mode){
+    public autoClicker(){
         //新增一個frame但invisible=false
         clicker=new JFrame();
         clicker.setSize(200,150);
@@ -19,37 +19,28 @@ public class autoClicker extends KeyAdapter {
         clicker.addKeyListener(this);
         clicker.setLocation(1280,150);
         clicker.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        if(mode==1){
-            //clicker.addKeyListener();
 
-            mod1();
-
-
-        }
-        else if(mode==2){
-
-        }
     }
     public void mod1(){//自動掛機
         //TODO
         //1.進入線上即時加退選介面
-        //2.找到"查詢"按鍵位置==(x,y)
+        clicker.add(new JLabel("當前功能:自動掛機"));
+        clicker.setVisible(true);
+        //while(true) {
 
-        try {
-            Robot r = new Robot();
-            r.mousePress(InputEvent.BUTTON1_DOWN_MASK);
-            r.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
-            r.mouseMove(80, 255); //教務系統
-            //r.mouseMove(80, 320); //選課系統
-            //r.mouseMove(100, 370); //線上即時加退選
-            //r.mouseMove(377, 339); //查詢
-            Thread.sleep(4000);
-            Thread.interrupted();
-        } catch (AWTException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+            try {
+                Robot r = new Robot();
+                r.mouseMove(377, 339); //查詢
+                r.mousePress(InputEvent.BUTTON1_DOWN_MASK);
+                r.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
+                Thread.sleep(4000);
+                //Thread.interrupted();
+            } catch (AWTException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        //}
     }
     @Override
     public void  keyPressed(KeyEvent e){//如果按shift+f4 程式停止
