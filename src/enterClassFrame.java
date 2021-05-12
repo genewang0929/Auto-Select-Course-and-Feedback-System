@@ -5,6 +5,8 @@ import java.awt.event.ActionListener;
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.InputEvent;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class enterClassFrame extends JFrame implements ActionListener {
@@ -59,55 +61,12 @@ public class enterClassFrame extends JFrame implements ActionListener {
             msg="密碼錯誤";
         JOptionPane.showMessageDialog(new JPanel(),msg,"錯誤",JOptionPane.ERROR_MESSAGE);
     }
-    public void openBrowser(){
-        try {
-            String url="https://ais.ntou.edu.tw/MainFrame.aspx";//請先提前登入教學務系統
-            java.net.URI uri = java.net.URI.create(url);
-            // 獲取當前系統桌面擴充套件
-            java.awt.Desktop dp = java.awt.Desktop.getDesktop();
-            // 判斷系統桌面是否支援要執行的功能
-            if (dp.isSupported(java.awt.Desktop.Action.BROWSE)) {
-                dp.browse(uri);
-                // 獲取系統預設瀏覽器開啟連結
-            }
-        } catch (java.lang.NullPointerException e) {
-            // 此為uri為空時丟擲異常
-            e.printStackTrace();
-        } catch (java.io.IOException e) {
-            // 此為無法獲取系統預設瀏覽器
-            e.printStackTrace();
-        }
-    }
     public void startChooseClass(){
         String[] name=className.getText().split("\n");//使用者輸入的課號
-        openBrowser();
         //TODO
-        //1.從教學務系統首頁進入選課頁面
         //2.一個填入課號(自動填入)
         autoClicker tool=new autoClicker();
-
-        try {
-            Thread.sleep(6000);
-            Robot r = new Robot();
-            r.mouseMove(80, 255); //教務系統
-            r.mousePress(InputEvent.BUTTON1_DOWN_MASK);
-            r.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
-            Thread.sleep(2000);
-            r.mouseMove(80, 320); //選課系統
-            r.mousePress(InputEvent.BUTTON1_DOWN_MASK);
-            r.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
-            Thread.sleep(2000);
-            r.mouseMove(100, 370); //線上即時加退選
-            r.mousePress(InputEvent.BUTTON1_DOWN_MASK);
-            r.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
-            Thread.sleep(2000);
-            //Thread.interrupted();
-        } catch (AWTException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        tool.mod1();
+        tool.open();
     }
     public void lastPage(){
         enterClassFrame.dispose();
