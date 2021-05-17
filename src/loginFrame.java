@@ -6,10 +6,12 @@ import java.awt.event.ActionListener;
 public class loginFrame extends JFrame implements ActionListener {
     private JFrame loginFrame;
     private JButton back,submit;
+    private JTextField account;
+    private JPasswordField password;
     public void open(){
         //主介面
         loginFrame=new JFrame("登入");
-        loginFrame.setSize(500,500);
+        loginFrame.setSize(500,200);
         loginFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         loginFrame.setLocationRelativeTo(null);//置中
         //以上除了size外先不要動
@@ -23,12 +25,12 @@ public class loginFrame extends JFrame implements ActionListener {
         back.addActionListener(this);
 
         //TestField
-        JTextField account=new JTextField();
+        account=new JTextField();
         account.setBounds(100,30,150,30);
 
         //PasswordField
-        JPasswordField passowrd=new JPasswordField();
-        passowrd.setBounds(100,60,150,30);
+        password=new JPasswordField();
+        password.setBounds(100,60,150,30);
 
         //Label
         JLabel label,label1,label2;
@@ -39,10 +41,10 @@ public class loginFrame extends JFrame implements ActionListener {
         label2=new JLabel("密碼");
         label2.setBounds(30,60,150,30);
         //Panel
-        JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JPanel panel = new JPanel(null);
         panel.setLayout(null);
         loginFrame.setContentPane(panel);
-        panel.add(passowrd);
+        panel.add(password);
         panel.add(account);
         panel.add(label);
         panel.add(label1);
@@ -52,7 +54,17 @@ public class loginFrame extends JFrame implements ActionListener {
 
         loginFrame.setVisible(true);//這放最後面
     }
-    public void errorMessage(int type){
+    public void login(){
+        //判定登入
+        //TODO
+        new SeleniumTest(account.getText(),password.getText());
+    }
+    public void lastPage(){
+        loginFrame.dispose();
+        mainFrame tmp=new mainFrame();
+        tmp.open();
+    }
+    /*public void errorMessage(int type){
         String msg="";
         if(type==1)
             msg="帳號錯誤或不存在";
@@ -60,30 +72,22 @@ public class loginFrame extends JFrame implements ActionListener {
             msg="密碼錯誤";
         JOptionPane.showMessageDialog(new JPanel(),msg,"錯誤",JOptionPane.ERROR_MESSAGE);
     }
-    public void lastPage(){
-        loginFrame.dispose();
-        mainFrame tmp=new mainFrame();
-        tmp.open();
-    }
+
     public int checkAccount(){
         return 0;
         //TODO
         //驗證帳密是否正確，負責資料庫的人寫
-    }
+    }*/
 
     @Override
     public void actionPerformed(ActionEvent event) {
         if(event.getSource()==back)
             lastPage();
         else if(event.getSource()==submit){
-            int pass=checkAccount();
-            if(pass==0){
-                loginFrame.dispose();
-                chooseFunctionFrame next=new chooseFunctionFrame();
-                next.open();
-            }
-            else
-                errorMessage(pass);
+            loginFrame.dispose();
+            login();
+            chooseFunctionFrame next=new chooseFunctionFrame(account.getText());
+            next.open();
         }
     }
 }

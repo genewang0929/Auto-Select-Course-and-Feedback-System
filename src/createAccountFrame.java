@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class createAccountFrame extends JFrame implements ActionListener {
-    //這邊全部超前面 還要改
+    //此頁面可能暫時不會用到
     private JFrame createAccountFrame;
     private JButton submit,back;
     private JTextField account;
@@ -46,7 +46,7 @@ public class createAccountFrame extends JFrame implements ActionListener {
         label3=new JLabel("再次輸入密碼");
         label3.setBounds(20,90,150,30);
         //Panel
-        JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JPanel panel = new JPanel(null);
         panel.setLayout(null);
         createAccountFrame.setContentPane(panel);
         panel.add(password);

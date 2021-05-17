@@ -14,9 +14,13 @@ public class enterClassFrame extends JFrame implements ActionListener {
     private JButton back,submit;
     private JTextArea className;
     private String[] errorMessage=new String[3];//["課號長度太短","課號長度太長","課號不存在"]
+    private String username;
+    public enterClassFrame(String username){
+        this.username=username;
+    }
     public void open(){
         //主介面
-        enterClassFrame=new JFrame("登入");
+        enterClassFrame=new JFrame("自動選課小幫手(目前登入:"+username+")");
         enterClassFrame.setSize(500,500);
         enterClassFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         enterClassFrame.setLocationRelativeTo(null);//置中
@@ -35,14 +39,14 @@ public class enterClassFrame extends JFrame implements ActionListener {
         className.setBounds(175,60,150,300);
 
         //Label
-        JLabel label,label1,label2;
+        JLabel label,label1;
         label=new JLabel("輸入欲選課課號");
         label.setBounds(200,0,100,30);
         label1=new JLabel("輸入多筆請用enter隔開");
         label1.setBounds(175,30,150,30);
 
         //Panel
-        JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JPanel panel = new JPanel(null);
         panel.setLayout(null);
         enterClassFrame.setContentPane(panel);
         panel.add(className);
@@ -65,12 +69,12 @@ public class enterClassFrame extends JFrame implements ActionListener {
         String[] name=className.getText().split("\n");//使用者輸入的課號
         //TODO
         //2.一個填入課號(自動填入)
-        autoClicker tool=new autoClicker();
+        autoClicker tool=new autoClicker(username);
         tool.open();
     }
     public void lastPage(){
         enterClassFrame.dispose();
-        chooseFunctionFrame tmp=new chooseFunctionFrame();
+        chooseFunctionFrame tmp=new chooseFunctionFrame(username);
         tmp.open();
     }
     @Override

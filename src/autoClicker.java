@@ -8,11 +8,14 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class autoClicker extends KeyAdapter {
-    private int x,y;
     private JFrame clicker;
     private JLabel currentFunction;
     private Timer timer;
     private TimerTask task;
+    private String username;
+    public autoClicker(String username){
+        this.username=username;
+    }
     public void open(){
         clicker=new JFrame();
         clicker.setSize(200,150);
@@ -88,8 +91,9 @@ public class autoClicker extends KeyAdapter {
     @Override
     public void  keyPressed(KeyEvent e){//如果按shift+f4 程式停止
         if(e.isShiftDown()&&e.getKeyCode()==KeyEvent.VK_F4) {
-            task.cancel();
             clicker.dispose();
+            task.cancel();
+            return;
         }
         else if(e.getKeyCode()==KeyEvent.VK_DOWN)//移動懸浮窗 use 上下左右鍵
             clicker.setLocation(clicker.getX(),clicker.getY()+10);
