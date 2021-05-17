@@ -1,5 +1,4 @@
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -57,7 +56,8 @@ public class loginFrame extends JFrame implements ActionListener {
     public void login(){
         //判定登入
         //TODO
-        new SeleniumTest(account.getText(),password.getText());
+
+        new autoLogin(account.getText(),password.getText());
     }
     public void lastPage(){
         loginFrame.dispose();
