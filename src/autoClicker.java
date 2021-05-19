@@ -30,13 +30,13 @@ public class autoClicker extends KeyAdapter {
     }
     public void start(){
         currentFunction.setText("閒置模式");
-        openBrowser();
-        sleep(6);
-        oneClick(80,255);//教務系統
+        //openBrowser();
         sleep(2);
-        oneClick(80,320);//選課系統
+        oneClick(80,205);//教務系統
         sleep(2);
-        oneClick(100,370);//線上即時加退選
+        oneClick(80,270);//選課系統
+        sleep(2);
+        oneClick(100,320);//線上即時加退選
         sleep(2);
     }
     public void sleep(int n){
@@ -82,7 +82,7 @@ public class autoClicker extends KeyAdapter {
         task=new TimerTask() {
             @Override
             public void run() {//連點
-                oneClick(377,339);//查詢鍵
+                oneClick(377,289);//查詢鍵
             }
         };
         timer=new Timer();
