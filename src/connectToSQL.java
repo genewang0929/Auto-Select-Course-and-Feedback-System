@@ -2,13 +2,13 @@ import org.postgresql.util.PSQLException;
 
 import java.sql.*;
 
-public class ConnectToSQL {
+public class connectToSQL {
     Connection connection;
     String jdbcURL;
     String sqlUser;
     String sqlPassword;
-    public ConnectToSQL() {
-        //與pgAdmin連線
+    public connectToSQL() {
+        //與postgreSQL連線
         jdbcURL = "jdbc:postgresql://localhost:5432/Student";
         sqlUser = "postgres";
         sqlPassword = "al2520626";
@@ -20,10 +20,10 @@ public class ConnectToSQL {
         }
     }
 
-    public void StudentInfo(String user_id, String password, String name) {
+    public void studentInfo(String user_id, String password, String name) {
         try{
             //加入Student Info
-            InsertInfo insertInfo = new InsertInfo();
+            insertInfo insertInfo = new insertInfo();
             PreparedStatement statement1 = connection.prepareStatement(insertInfo.getQuery());
             statement1.setString(1, user_id);
             statement1.setString(2, password);
@@ -40,18 +40,26 @@ public class ConnectToSQL {
         }
     }
 
-    public void Comment(String user_id, String comment) {
-        try{
-            //創建comment table
+    public void createClass(String user_id, String comment, String className) {
+        //創建comment table
+        try {
             Statement statement = connection.createStatement();
-            CreateCommentTable createTable = new CreateCommentTable("Java");
+            createCommentTable createTable = new createCommentTable(className);
             statement.executeUpdate(createTable.getQuery());
             System.out.println("Table Created!");
-            //加入comment
-            InsertComment insertComment = new InsertComment("Java");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        insertComment(user_id, comment, className);
+    }
+
+    public void insertComment(String user_id, String comment, String className) {
+        //加入comment
+        try{
+            insertComment insertComment = new insertComment(className);
             PreparedStatement statement2 = connection.prepareStatement(insertComment.getQuery());
-            statement2.setString(1, "00857053");
-            statement2.setString(2, "讚!");
+            statement2.setString(1, user_id);
+            statement2.setString(2, comment);
             statement2.executeUpdate();
             System.out.println("A new comment has been inserted");
         } catch (SQLException e) {
