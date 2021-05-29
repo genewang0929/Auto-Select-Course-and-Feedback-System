@@ -5,15 +5,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-import javax.swing.text.Document;
 import java.awt.event.InputEvent;
-import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
-import java.sql.SQLException;
 
-public class SeleniumTest {
-    public SeleniumTest(String Account,String Password) {
+public class seleniumTest {
+    public seleniumTest(String Account, String Password) {
         System.setProperty("webdriver.chrome.driver", "resources/chromedriver.exe");
         WebDriver driver = new ChromeDriver();
         driver.get("https://ais.ntou.edu.tw/Default.aspx");
@@ -32,11 +27,11 @@ public class SeleniumTest {
         driver.findElement(By.xpath("//*[@id=\"LGOIN_BTN\"]")).click();
 
         //上教學務爬取登入者姓名
-        String Name = "";
+//       String Name = "";
         //TODO
 
         //將登入資料傳送到資料庫
-        ConnectToSQL connectToSQL = new ConnectToSQL();
-        connectToSQL.StudentInfo(Account, Password, Name);
+//        connectToSQL connectToSQL = new connectToSQL();
+//        connectToSQL.studentInfo(Account, Password, Name);
     }
 }
