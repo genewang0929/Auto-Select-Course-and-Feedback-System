@@ -58,6 +58,7 @@ public class loginFrame extends JFrame implements ActionListener {
         //判定登入
         //TODO
         new SeleniumTest(account.getText(),password.getText());
+
     }
     public void lastPage(){
         loginFrame.dispose();
