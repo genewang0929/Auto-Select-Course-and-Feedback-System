@@ -1,6 +1,6 @@
-public class InsertComment {
+public class insertComment {
     private String query;
-    public InsertComment(String className) {
+    public insertComment(String className) {
         query = "INSERT INTO " + className + "(username, comment_, created_on)"
                 + "VALUES (?, ?, CURRENT_TIMESTAMP)";
     }
