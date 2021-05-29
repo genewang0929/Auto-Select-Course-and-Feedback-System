@@ -1,6 +1,6 @@
-public class InsertInfo {
+public class insertInfo {
     private String query;
-    public InsertInfo() {
+    public insertInfo() {
         query = "INSERT INTO StudentInfo(user_id, password_, studentName) VALUES(?, ?, ?)";
     }
 
