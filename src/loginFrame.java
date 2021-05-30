@@ -56,7 +56,7 @@ public class loginFrame extends JFrame implements ActionListener {
     public void login(){
         //判定登入
         //TODO
-        new seleniumTest(account.getText(),password.getText());
+        selenium.loginNTOU(account.getText(),password.getText());
 
     }
     public void lastPage(){
@@ -85,8 +85,9 @@ public class loginFrame extends JFrame implements ActionListener {
             lastPage();
         else if(event.getSource()==submit){
             loginFrame.dispose();
-            login();
+
             chooseFunctionFrame next=new chooseFunctionFrame(account.getText());
+            login();
             next.open();
         }
     }

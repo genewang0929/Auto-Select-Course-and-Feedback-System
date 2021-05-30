@@ -44,7 +44,9 @@ public class chooseFunctionFrame extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent event) {
         if(event.getSource()==chooseClass){
             chooseFunction.dispose();//關掉視窗
+            selenium.acessToSelectClass();
             enterClassFrame next=new enterClassFrame(username);
+
             next.open();
         }
         else if(event.getSource()==comment){
