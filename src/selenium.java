@@ -10,7 +10,7 @@ import java.awt.event.InputEvent;
 public class selenium {
     private static WebDriver driver;
     public static  void setDriver(){
-        System.setProperty("webdriver.chrome.driver", "./resources/chromedriver");
+        System.setProperty("webdriver.chrome.driver", "./resources/chromedriver.exe");
         driver = new ChromeDriver();
     }
     public static void loginNTOU(String Account, String Password) {
@@ -20,19 +20,6 @@ public class selenium {
         username.sendKeys(Account);
         WebElement password = driver.findElement(By.name("M_PW"));
         password.sendKeys(Password);
-        //我看不懂，幫我註解一下
-        //哪個王八蛋
-        /*
-        try {
-            Robot r=new Robot();
-            r.mousePress(InputEvent.BUTTON1_DOWN_MASK);
-            r.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
-            r.keyPress(KeyEvent.VK_F11);
-        }catch (Exception e){
-            return;
-        }
-        */
-
         driver.findElement(By.xpath("//*[@id=\"LGOIN_BTN\"]")).click();
 
         //上教學務爬取登入者姓名
@@ -45,7 +32,21 @@ public class selenium {
 //        connectToSQL.studentInfo(Account, Password, Name);
     }
     public static void acessToSelectClass(){
-        driver.get("https://ais.ntou.edu.tw/Application/TKE/TKE22/TKE2211_01.aspx");
+        //driver.get("https://ais.ntou.edu.tw/Application/TKE/TKE22/TKE2211_01.aspx");
+        //還是用正規方法比較好
+        driver.findElement(By.xpath("//*[@id=\"Menu_TreeViewt1\"]")).click();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        driver.findElement(By.xpath("/html/body/form/div[3]/table/tbody/tr[1]/td/div/div/div/table[3]/tbody/tr/td[5]/a")).click();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        driver.findElement(By.xpath("/html/body/form/div[3]/table/tbody/tr[1]/td/div/div/div/div/table[2]/tbody/tr/td[6]/a")).click();
         //bs4去爬資料
         //結合批次選課
     }
