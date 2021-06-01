@@ -20,14 +20,14 @@ public class connectToSQL {
         }
     }
 
-    public void studentInfo(String user_id, String password, String name) {
+    public void studentInfo(String user_id, String password) {
         try{
             //加入Student Info
             insertInfo insertInfo = new insertInfo();
             PreparedStatement statement1 = connection.prepareStatement(insertInfo.getQuery());
             statement1.setString(1, user_id);
             statement1.setString(2, password);
-            statement1.setString(3, name);
+            statement1.setString(3, "false");
             try {
                 statement1.executeUpdate();
                 System.out.println("A new student has registered");
