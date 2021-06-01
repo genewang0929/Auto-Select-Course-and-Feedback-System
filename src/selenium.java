@@ -34,6 +34,7 @@ public class selenium {
     public static void acessToSelectClass(){
         //driver.get("https://ais.ntou.edu.tw/Application/TKE/TKE22/TKE2211_01.aspx");
         //還是用正規方法比較好
+        driver.switchTo().frame("menuFrame");
         driver.findElement(By.xpath("//*[@id=\"Menu_TreeViewt1\"]")).click();
         try {
             Thread.sleep(1000);
