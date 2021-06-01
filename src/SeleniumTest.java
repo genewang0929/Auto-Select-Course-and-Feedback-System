@@ -9,29 +9,33 @@ import java.awt.event.InputEvent;
 
 public class seleniumTest {
     public seleniumTest(String Account, String Password) {
-        System.setProperty("webdriver.chrome.driver", "resources/chromedriver.exe");
         WebDriver driver = new ChromeDriver();
+        driver.manage().window().maximize();
         driver.get("https://ais.ntou.edu.tw/Default.aspx");
         WebElement username = driver.findElement(By.name("M_PORTAL_LOGIN_ACNT"));
         username.sendKeys(Account);
         WebElement password = driver.findElement(By.name("M_PW"));
         password.sendKeys(Password);
-        try {
-            Robot r=new Robot();
-            r.mousePress(InputEvent.BUTTON1_DOWN_MASK);
-            r.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
-            r.keyPress(KeyEvent.VK_F11);
-        }catch (Exception e){
-            return;
-        }
         driver.findElement(By.xpath("//*[@id=\"LGOIN_BTN\"]")).click();
-
-        //上教學務爬取登入者姓名
-//       String Name = "";
-        //TODO
-
+        driver.switchTo().frame("menuFrame");
+        driver.findElement(By.xpath("//*[@id=\"Menu_TreeViewt1\"]")).click();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        driver.findElement(By.xpath("/html/body/form/div[3]/table/tbody/tr[1]/td/div/div/div/table[3]/tbody/tr/td[5]/a")).click();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        driver.findElement(By.xpath("/html/body/form/div[3]/table/tbody/tr[1]/td/div/div/div/div/table[2]/tbody/tr/td[6]/a")).click();
+//        driver.findElement(By.xpath("//*[@id=\"Q_COSID\"]")).sendKeys("B57033MD");
+//        driver.findElement(By.xpath("//*[@id=\"QUERY_COSID_BTN\"]")).click();
+//        driver.findElement(By.xpath("//*[@id=\"DataGrid1_ctl02_edit\"]")).click();
         //將登入資料傳送到資料庫
 //        connectToSQL connectToSQL = new connectToSQL();
-//        connectToSQL.studentInfo(Account, Password, Name);
+//        connectToSQL.studentInfo(Account, Password);
     }
 }
