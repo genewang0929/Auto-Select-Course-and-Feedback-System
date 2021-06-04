@@ -1,19 +1,12 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.nio.file.Paths;
-import java.util.Formatter;
-import java.util.Scanner;
 
 public class loginFrame extends JFrame implements ActionListener {
     private JFrame loginFrame;
     private JButton back,submit;
     private JTextField account;
     private JPasswordField password;
-    private JRadioButton keepLogin;
     public void open(){
         //主介面
         loginFrame=new JFrame("登入");
@@ -22,17 +15,13 @@ public class loginFrame extends JFrame implements ActionListener {
         loginFrame.setLocationRelativeTo(null);//置中
         //以上除了size外先不要動
 
-        //Button
+        //Botton
         submit=new JButton("送出");
-        submit.setBounds(150,120,60,30);
+        submit.setBounds(150,100,60,30);
         back=new JButton("回上頁");
-        back.setBounds(240,120,90,30);
+        back.setBounds(240,100,90,30);
         submit.addActionListener(this);//事件監聽
         back.addActionListener(this);
-
-        //RadioButton
-        keepLogin=new JRadioButton("保持登入狀態");
-        keepLogin.setBounds(100,90,150,30);
 
         //TestField
         account=new JTextField();
@@ -56,7 +45,6 @@ public class loginFrame extends JFrame implements ActionListener {
         loginFrame.setContentPane(panel);
         panel.add(password);
         panel.add(account);
-        panel.add(keepLogin);
         panel.add(label);
         panel.add(label1);
         panel.add(label2);
@@ -65,8 +53,11 @@ public class loginFrame extends JFrame implements ActionListener {
 
         loginFrame.setVisible(true);//這放最後面
     }
-    public void login(){//判定登入
+    public void login(){
+        //判定登入
+        //TODO
         selenium.loginNTOU(account.getText(),password.getText());
+
     }
     public void lastPage(){
         loginFrame.dispose();
@@ -87,38 +78,17 @@ public class loginFrame extends JFrame implements ActionListener {
         //TODO
         //驗證帳密是否正確，負責資料庫的人寫
     }*/
+
     @Override
     public void actionPerformed(ActionEvent event) {
         if(event.getSource()==back)
             lastPage();
         else if(event.getSource()==submit){
-            if(keepLogin.isSelected()){
-                File target=new File("src\\userdata.txt");
-                //資料格式:帳號+空格+密碼+\n
-                try {
-                    File tempFile=File.createTempFile("temp",".txt",target.getParentFile());
-                    FileWriter w = new FileWriter(tempFile, true);
-                    Scanner r=new Scanner(Paths.get("src\\userdata.txt"));
-                    String userdata=account.getText()+" "+password.getText()+"\n",data="";
-                    while(r.hasNextLine()){
-                        String tmp=r.nextLine();
-                        if(tmp.indexOf(account.getText())==0)
-                            data+=userdata;
-                        else
-                            data+=tmp+"\n";
-                    }
-                    w.write(data);
-                    w.close();
-                    target.delete();
-                    tempFile.renameTo(target);
-                }catch (Exception e){
-                    System.out.println("暫時無法使用此功能，重開試試?");
-                }
-            }
             loginFrame.dispose();
+
             chooseFunctionFrame next=new chooseFunctionFrame(account.getText());
-            next.open();
             login();
+            next.open();
         }
     }
 }

@@ -9,7 +9,7 @@ public class connectToSQL {
     String sqlPassword;
     public connectToSQL() {
         //與postgreSQL連線
-        jdbcURL = "jdbc:postgresql://localhost:5432/Student";
+        jdbcURL = "jdbc:postgresql://192.168.50.230:5432/Student";
         sqlUser = "postgres";
         sqlPassword = "al2520626";
         try {
@@ -23,11 +23,11 @@ public class connectToSQL {
     public void studentInfo(String user_id, String password) {
         try{
             //加入Student Info
-            insertInfo insertInfo = new insertInfo();
+            InsertInfo insertInfo = new InsertInfo();
             PreparedStatement statement1 = connection.prepareStatement(insertInfo.getQuery());
             statement1.setString(1, user_id);
             statement1.setString(2, password);
-            statement1.setString(3, "false");
+            statement1.setString(3, "");
             try {
                 statement1.executeUpdate();
                 System.out.println("A new student has registered");
