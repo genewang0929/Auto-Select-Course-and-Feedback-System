@@ -27,8 +27,8 @@ public class selenium {
         if(!driver.getCurrentUrl().equals("https://ais.ntou.edu.tw/MainFrame.aspx"))
             System.out.println("Login Error");
         else {
-            connectToSQL connectToSQL = new connectToSQL();
-            connectToSQL.studentInfo(Account, Password);
+            //connectToSQL connectToSQL = new connectToSQL();
+            //connectToSQL.studentInfo(Account, Password);
         }
     }
 

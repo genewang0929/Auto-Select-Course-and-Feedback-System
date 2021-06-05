@@ -1,15 +1,15 @@
 import org.postgresql.util.PSQLException;
 
 import java.sql.*;
-
 public class connectToSQL {
     Connection connection;
     String jdbcURL;
     String sqlUser;
     String sqlPassword;
     public connectToSQL() {
+        //192.168.50.230
         //與postgreSQL連線
-        jdbcURL = "jdbc:postgresql://192.168.50.230:5432/Student";
+        jdbcURL = "jdbc:postgresql://192.168.50.115:5432/Student";
         sqlUser = "postgres";
         sqlPassword = "al2520626";
         try {
