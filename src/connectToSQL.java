@@ -9,7 +9,7 @@ public class connectToSQL {
     public connectToSQL() {
         //192.168.50.230
         //與postgreSQL連線
-        jdbcURL = "jdbc:postgresql://192.168.50.115:5432/Student";
+        jdbcURL = "jdbc:postgresql://25.66.132.145:5432/Student";
         sqlUser = "postgres";
         sqlPassword = "al2520626";
         try {
@@ -44,7 +44,7 @@ public class connectToSQL {
         //創建comment table
         try {
             Statement statement = connection.createStatement();
-            createCommentTable createTable = new createCommentTable(className);
+            CreateCommentTable createTable = new CreateCommentTable(className);
             statement.executeUpdate(createTable.getQuery());
             System.out.println("Table Created!");
         } catch (SQLException e) {
@@ -56,12 +56,26 @@ public class connectToSQL {
     public void insertComment(String user_id, String comment, String className) {
         //加入comment
         try{
-            insertComment insertComment = new insertComment(className);
+            InsertComment insertComment = new InsertComment(className);
             PreparedStatement statement2 = connection.prepareStatement(insertComment.getQuery());
             statement2.setString(1, user_id);
             statement2.setString(2, comment);
             statement2.executeUpdate();
             System.out.println("A new comment has been inserted");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void readComment(String className) {
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM " + className);
+            while(resultSet.next())
+                System.out.println(resultSet.getString(2) + "     " + resultSet.getString(3) + "     " + resultSet.getString(4));
+            resultSet.close();
+            statement.close();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
