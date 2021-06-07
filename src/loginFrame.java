@@ -78,52 +78,43 @@ public class loginFrame extends JFrame implements ActionListener {
         mainFrame tmp=new mainFrame();
         tmp.open();
     }
-    /*public void errorMessage(int type){
-        String msg="";
-        if(type==1)
-            msg="帳號錯誤或不存在";
-        else if(type==2)
-            msg="密碼錯誤";
-        JOptionPane.showMessageDialog(new JPanel(),msg,"錯誤",JOptionPane.ERROR_MESSAGE);
-    }
 
-    public int checkAccount(){
-        return 0;
-        //TODO
-        //驗證帳密是否正確，負責資料庫的人寫
-    }*/
     @Override
     public void actionPerformed(ActionEvent event) {
         if(event.getSource()==back)
             lastPage();
         else if(event.getSource()==submit){
             if(keepLogin.isSelected()){
-                File target=new File("src\\userdata.txt");
+                boolean append=true;
                 //資料格式:帳號+空格+密碼+\n
                 try {
-                    File tempFile=File.createTempFile("temp",".txt",target.getParentFile());
-                    FileWriter w = new FileWriter(tempFile, true);
                     Scanner r=new Scanner(Paths.get("src\\userdata.txt"));
                     String userdata=account.getText()+" "+password.getText()+"\n",data="";
                     while(r.hasNextLine()){
                         String tmp=r.nextLine();
-                        if(tmp.indexOf(account.getText())==0)
-                            data+=userdata;
+                        if(tmp.indexOf(account.getText())==0) {
+                            data += userdata;
+                            append=false;
+                        }
                         else
                             data+=tmp+"\n";
                     }
+                    if(append)
+                        data+=userdata;
+                    File newData=new File("src\\userdata.txt");
+                    newData.delete();
+                    newData.createNewFile();
+                    FileWriter w = new FileWriter(newData, true);
                     w.write(data);
                     w.close();
-                    target.delete();
-                    tempFile.renameTo(target);
                 }catch (Exception e){
                     System.out.println("暫時無法使用此功能，重開試試?");
                 }
             }
             loginFrame.dispose();
-            login();
             chooseFunctionFrame next=new chooseFunctionFrame(account.getText(),driver);
             next.open();
+            login();
 
         }
     }
