@@ -1,8 +1,10 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
-public class loginFrame extends JFrame implements ActionListener {
+public class loginFrame extends JFrame implements ActionListener, KeyListener {
     private JFrame loginFrame;
     private JButton back,submit;
     private JTextField account;
@@ -30,6 +32,7 @@ public class loginFrame extends JFrame implements ActionListener {
         //PasswordField
         password=new JPasswordField();
         password.setBounds(100,60,150,30);
+        password.addKeyListener(this);
 
         //Label
         JLabel label,label1,label2;
@@ -64,20 +67,6 @@ public class loginFrame extends JFrame implements ActionListener {
         mainFrame tmp=new mainFrame();
         tmp.open();
     }
-    /*public void errorMessage(int type){
-        String msg="";
-        if(type==1)
-            msg="帳號錯誤或不存在";
-        else if(type==2)
-            msg="密碼錯誤";
-        JOptionPane.showMessageDialog(new JPanel(),msg,"錯誤",JOptionPane.ERROR_MESSAGE);
-    }
-
-    public int checkAccount(){
-        return 0;
-        //TODO
-        //驗證帳密是否正確，負責資料庫的人寫
-    }*/
 
     @Override
     public void actionPerformed(ActionEvent event) {
@@ -85,10 +74,30 @@ public class loginFrame extends JFrame implements ActionListener {
             lastPage();
         else if(event.getSource()==submit){
             loginFrame.dispose();
-
             chooseFunctionFrame next=new chooseFunctionFrame(account.getText());
             login();
             next.open();
         }
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+            loginFrame.dispose();
+            chooseFunctionFrame next=new chooseFunctionFrame(account.getText());
+            login();
+            next.open();
+        }
+
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+
     }
 }
