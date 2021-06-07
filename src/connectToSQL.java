@@ -67,7 +67,7 @@ public class connectToSQL {
         }
     }
 
-    public void readComment(String className) {
+    public void getComment(String className) {
         try {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM " + className);
@@ -76,6 +76,20 @@ public class connectToSQL {
             resultSet.close();
             statement.close();
 
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void getAllClassName() {
+        try {
+            DatabaseMetaData metaData = connection.getMetaData();
+            ResultSet resultSet = metaData.getTables(null, null, null, new String[]{"TABLE"});
+            while (resultSet.next()) {
+                String className = resultSet.getString("TABLE_NAME");
+                if(!className.equals("studentinfo"))
+                    System.out.println("課名 : " + className);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
