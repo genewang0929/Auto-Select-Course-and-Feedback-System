@@ -1,7 +1,7 @@
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-import java.awt.AWTException;
-import java.awt.Robot;
+import java.awt.*;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -14,7 +14,7 @@ import java.util.TimerTask;
 
 public class autoClicker extends KeyAdapter {
     private JFrame clicker;
-    private JLabel currentFunction;
+    private JLabel showLog;
     private Timer timer;
     private TimerTask task;
     private String username;
@@ -34,12 +34,14 @@ public class autoClicker extends KeyAdapter {
         clicker.addKeyListener(this);
         clicker.setLocation(1280,150);
         clicker.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        currentFunction=new JLabel("按Enter鍵開始選課",SwingConstants.CENTER);
-        clicker.add(currentFunction);
+        showLog=new JLabel("按Enter鍵開始選課");
+        JPanel panel=new JPanel(null);
+        panel.add(showLog);
+        clicker.setContentPane(panel);
+        showLog.setBounds(50,0,200,150);
     }
     public void start(){
-        String text="當前狀態:\n";
-        currentFunction.setText(text);
+        String text="";
         selenium s=new selenium();
         s.setDriver2(driver);
         s.acessToSelectClass();
@@ -53,21 +55,36 @@ public class autoClicker extends KeyAdapter {
             System.out.println(e);
         }
         log=new boolean[name.size()];
+        text="<html><body><p align=\"center\">當前狀態:";
         for(int i=0;i<name.size();i++){
             s.idOneClick(name.get(i));
-            //sleep(1);
-            log[i]=judge(name.get(i));
-            text+=name.get(i)+" "+log[i]+"\n";
-            clicker.revalidate();
+            //System.out.println("\n\n\n\n"+name.get(i)+"\n\n\n\n");
+            log[i]=haveBeenSelect(name.get(i));
+            //System.out.println("\n\n\n\n"+log[i]+"\n\n\n\n");
+            text+="<br/>"+name.get(i)+" "+log[i];
         }
-        for(int i=0;i<name.size();i++){
+        text+="</p></body></html>";
+        showLog.setText(text);
+        clicker.revalidate();
+        /*for(int i=0;i<name.size();i++){
             if(log[i]==false)
                 s.idClicking(name.get(i));
+        }*/
+    }
+    public boolean haveBeenSelect(String target){
+        int haveBeenSelectNum=0;
+        try {
+            haveBeenSelectNum=Integer.parseInt(driver.findElement(By.xpath("//[@id=\"LISTNUM3\"]")).getText());
+        }catch (Exception e){
+            System.out.println(e);
         }
 
-    }
-    public boolean judge(String target){
+        for (int i = 2; i <= haveBeenSelectNum+1; i++) {
+            if(driver.findElement(By.xpath("//[@id=\"DataGrid3\"]/tbody/tr["+i+"]/td[2]")).getText().equals(target))
+                return true;
+        }
         return false;
+
     }
     public void sleep(int n){
         try {
