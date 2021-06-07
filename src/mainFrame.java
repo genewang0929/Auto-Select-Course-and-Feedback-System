@@ -1,3 +1,5 @@
+import org.openqa.selenium.WebDriver;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -70,12 +72,16 @@ public class mainFrame extends JFrame implements ActionListener{
                 next.open();
             }
             else{
-                chooseFunctionFrame next=new chooseFunctionFrame(Case);
-                next.open();
+                WebDriver driver=null;
                 for(int i=0;i<index;i++) {
-                    if(Case==data[i][0])
-                    selenium.loginNTOU(data[i][0],data[i][1]);
+                    if(Case==data[i][0]) {
+                        selenium s=new selenium();
+                        s.loginNTOU(data[i][0], data[i][1]);
+                        driver=s.getDriver();
+                    }
                 }
+                chooseFunctionFrame next=new chooseFunctionFrame(Case,driver);
+                next.open();
             }
         }
     }

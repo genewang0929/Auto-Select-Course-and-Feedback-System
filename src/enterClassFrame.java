@@ -1,3 +1,5 @@
+import org.openqa.selenium.WebDriver;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -5,6 +7,8 @@ import java.awt.event.ActionListener;
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.InputEvent;
+import java.io.File;
+import java.io.FileWriter;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -13,10 +17,11 @@ public class enterClassFrame extends JFrame implements ActionListener {
     private JFrame enterClassFrame;
     private JButton back,submit;
     private JTextArea className;
-    private String[] errorMessage=new String[3];//["課號長度太短","課號長度太長","課號不存在"]
     private String username;
-    public enterClassFrame(String username){
+    private WebDriver driver;
+    public enterClassFrame(String username,WebDriver driver){
         this.username=username;
+        this.driver=driver;
     }
     public void open(){
         //主介面
@@ -57,24 +62,23 @@ public class enterClassFrame extends JFrame implements ActionListener {
 
         enterClassFrame.setVisible(true);//這放最後面
     }
-    public void errorMessage(int type){
-        String msg="";
-        if(type==1)
-            msg="不存在";
-        else if(type==2)
-            msg="密碼錯誤";
-        JOptionPane.showMessageDialog(new JPanel(),msg,"錯誤",JOptionPane.ERROR_MESSAGE);
-    }
     public void startChooseClass(){
-        String[] name=className.getText().split("\n");//使用者輸入的課號
-        //TODO
-        //2.一個填入課號(自動填入)
-        autoClicker tool=new autoClicker(username);
+        try {
+            File file = new File("src\\classdata.txt");
+            file.createNewFile();
+            FileWriter f=new FileWriter("src\\classdata.txt");
+            f.write(className.getText());
+            f.close();
+        }catch (Exception e){
+            System.out.println(e);
+        }
+
+        autoClicker tool=new autoClicker(username,driver);
         tool.open();
     }
     public void lastPage(){
         enterClassFrame.dispose();
-        chooseFunctionFrame tmp=new chooseFunctionFrame(username);
+        chooseFunctionFrame tmp=new chooseFunctionFrame(username,driver);
         tmp.open();
     }
     @Override

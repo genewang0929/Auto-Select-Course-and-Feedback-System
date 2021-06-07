@@ -1,3 +1,5 @@
+import org.openqa.selenium.WebDriver;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -6,8 +8,10 @@ public class chooseFunctionFrame extends JFrame implements ActionListener {
     private JButton comment,chooseClass;
     private JFrame chooseFunction;
     private String username;
-    public chooseFunctionFrame(String username){
+    private WebDriver driver;
+    public chooseFunctionFrame(String username,WebDriver driver){
         this.username=username;
+        this.driver=driver;
     }
     public void open(){
         //主介面
@@ -15,6 +19,7 @@ public class chooseFunctionFrame extends JFrame implements ActionListener {
         chooseFunction.setSize(500,150);
         chooseFunction.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         chooseFunction.setLocationRelativeTo(null);//置中
+        chooseFunction.setAlwaysOnTop(true);
         //以上除了size外先不要動
 
 
@@ -38,18 +43,20 @@ public class chooseFunctionFrame extends JFrame implements ActionListener {
         panel.add(comment);
         panel.setOpaque(false);
         chooseFunction.setVisible(true);//這個放最後面
+
     }
 
     @Override
     public void actionPerformed(ActionEvent event) {
         if(event.getSource()==chooseClass){
             chooseFunction.dispose();//關掉視窗
-            enterClassFrame next=new enterClassFrame(username);
+            enterClassFrame next=new enterClassFrame(username,driver);
             next.open();
         }
         else if(event.getSource()==comment){
             chooseFunction.dispose();
             commentAreaFrame next=new commentAreaFrame(username);
+            //commentClassFrame next=new commentClassFrame();
             next.open();
         }
     }

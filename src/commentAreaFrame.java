@@ -54,9 +54,9 @@ public class commentAreaFrame extends JFrame implements ActionListener {
 
         }
         else if(event.getSource()==back){
-            commentAreaFrame.dispose();
+            /*commentAreaFrame.dispose();
             chooseFunctionFrame tmp=new chooseFunctionFrame(username);
-            tmp.open();
+            tmp.open();*/
         }
     }
 }
