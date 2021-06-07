@@ -1,11 +1,9 @@
-import java.awt.Robot;
-import java.awt.event.KeyEvent;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-import java.awt.event.InputEvent;
+import java.sql.SQLException;
 
 public class selenium {
     private static WebDriver driver;
@@ -27,8 +25,12 @@ public class selenium {
         if(!driver.getCurrentUrl().equals("https://ais.ntou.edu.tw/MainFrame.aspx"))
             System.out.println("Login Error");
         else {
-            //connectToSQL connectToSQL = new connectToSQL();
-            //connectToSQL.studentInfo(Account, Password);
+            try {
+                ConnectToSQL connectToSQL = new ConnectToSQL();
+                connectToSQL.studentInfo(Account, Password);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
