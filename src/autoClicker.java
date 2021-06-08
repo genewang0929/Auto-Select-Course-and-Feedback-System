@@ -20,7 +20,8 @@ public class autoClicker extends KeyAdapter {
     private String username;
     private WebDriver driver;
     private ArrayList<String> name;
-    private boolean[] log;
+    private String[] msg={"尚未選到","已經擁有這門課","衝堂"};
+    private int[] log;
     public autoClicker(String username,WebDriver driver){
         this.driver=driver;
         this.username=username;
@@ -54,14 +55,13 @@ public class autoClicker extends KeyAdapter {
         }catch (Exception e){
             System.out.println(e);
         }
-        log=new boolean[name.size()];
+        log=new int[name.size()];
         text="<html><body><p align=\"center\">當前狀態:";
         for(int i=0;i<name.size();i++){
             s.idOneClick(name.get(i));
-            //System.out.println("\n\n\n\n"+name.get(i)+"\n\n\n\n");
-            log[i]=haveBeenSelect(name.get(i));
-            //System.out.println("\n\n\n\n"+log[i]+"\n\n\n\n");
-            text+="<br/>"+name.get(i)+" "+log[i];
+            if(haveBeenSelect(name.get(i)))
+                log[i]=1;
+            text+="<br/>"+name.get(i)+" "+msg[log[i]];
         }
         text+="</p></body></html>";
         showLog.setText(text);
@@ -71,16 +71,39 @@ public class autoClicker extends KeyAdapter {
                 s.idClicking(name.get(i));
         }*/
     }
+    public static boolean haveClassTimeClash(String target){
+        ArrayList<String> classTime=new ArrayList<String>();
+        idSearch(target);
+        int haveBeenSelectNum=Integer.parseInt(driver.findElement(By.xpath("//*[@id=\"LISTNUM3\"]")).getText());
+        for (int i = 2; i <= haveBeenSelectNum+1; i++) {
+            for (String subTime:driver.findElement(By.xpath("//*[@id=\"DataGrid3\"]/tbody/tr["+String.format("%d",i)+"]/td[7]")).getText().split(",")) {
+                classTime.add(subTime);
+            }
+        }
+
+        String classTempTime=driver.findElement(By.xpath("//*[@id=\"DataGrid1\"]/tbody/tr[2]/td[9]")).getText();
+        System.out.println(classTempTime);
+        for (String subClassTime:classTempTime.split(",")) {
+            for (String subTime:classTime) {
+                if (subClassTime.equals(subTime))
+                    //有衝堂
+                    return true;
+            }
+        }
+        //沒有衝堂
+        return false;
+    }
     public boolean haveBeenSelect(String target){
         int haveBeenSelectNum=0;
         try {
-            haveBeenSelectNum=Integer.parseInt(driver.findElement(By.xpath("//[@id=\"LISTNUM3\"]")).getText());
+            haveBeenSelectNum=Integer.parseInt(driver.findElement(By.xpath("//*[@id=\"LISTNUM3\"]")).getText());
         }catch (Exception e){
             System.out.println(e);
         }
-
+        //System.out.println(haveBeenSelectNum+"\n\n\n\n");
         for (int i = 2; i <= haveBeenSelectNum+1; i++) {
-            if(driver.findElement(By.xpath("//[@id=\"DataGrid3\"]/tbody/tr["+i+"]/td[2]")).getText().equals(target))
+           // System.out.println(driver.findElement(By.xpath("//*[@id=\"DataGrid3\"]/tbody/tr["+i+"]/td[7]")).getText()+"\n\n\n\n");
+            if(driver.findElement(By.xpath("//*[@id=\"DataGrid3\"]/tbody/tr["+i+"]/td[2]")).getText().equals(target))
                 return true;
         }
         return false;

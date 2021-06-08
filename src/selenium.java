@@ -73,7 +73,7 @@ public class selenium {
                 wait.until( ExpectedConditions.alertIsPresent()).accept();
 
             }catch (Exception e){
-                System.out.println(e);
+                //System.out.println(e);
             }
         }
     }
@@ -84,7 +84,7 @@ public class selenium {
             wait.until( ExpectedConditions.alertIsPresent()).accept();
 
         }catch (Exception e){
-            System.out.println(e);
+            //System.out.println(e);
         }
     }
 
@@ -93,7 +93,7 @@ public class selenium {
         try {
             Thread.sleep(sec * 1000);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
     }
 }
