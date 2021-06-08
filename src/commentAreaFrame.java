@@ -74,7 +74,7 @@ public class commentAreaFrame extends JFrame implements ActionListener {
         else {
             commentAreaFrame.dispose();
             //鎖定課名，使點擊查看可以連到該留言板
-            
+            //TODO
             String className = "資安";
             CommentFrame tmp = new CommentFrame(username, className);
             tmp.open();
