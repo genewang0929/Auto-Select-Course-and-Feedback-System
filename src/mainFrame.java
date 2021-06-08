@@ -27,7 +27,7 @@ public class mainFrame extends JFrame implements ActionListener{
         select=new JComboBox();
         select.addItem("無(輸入帳號密碼)");
         try{
-            Scanner in=new Scanner(Paths.get("src\\userdata.txt"));
+            Scanner in=new Scanner(Paths.get("./src/userdata.txt"));
             index=0;
             data=new String[100][];
             while(in.hasNextLine()){
@@ -75,12 +75,10 @@ public class mainFrame extends JFrame implements ActionListener{
                 WebDriver driver=null;
                 for(int i=0;i<index;i++) {
                     if(Case==data[i][0]) {
-                        selenium s=new selenium();
-                        s.loginNTOU(data[i][0], data[i][1]);
-                        driver=s.getDriver();
+                        selenium.loginNTOU(data[i][0], data[i][1]);
                     }
                 }
-                chooseFunctionFrame next=new chooseFunctionFrame(Case,driver);
+                chooseFunctionFrame next=new chooseFunctionFrame(Case);
                 next.open();
             }
         }

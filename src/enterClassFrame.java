@@ -19,9 +19,8 @@ public class enterClassFrame extends JFrame implements ActionListener {
     private JTextArea className;
     private String username;
     private WebDriver driver;
-    public enterClassFrame(String username,WebDriver driver){
+    public enterClassFrame(String username){
         this.username=username;
-        this.driver=driver;
     }
     public void open(){
         //主介面
@@ -64,9 +63,9 @@ public class enterClassFrame extends JFrame implements ActionListener {
     }
     public void startChooseClass(){
         try {
-            File file = new File("src\\classdata.txt");
+            File file = new File("./src/classdata.txt");
             file.createNewFile();
-            FileWriter f=new FileWriter("src\\classdata.txt");
+            FileWriter f=new FileWriter("./src/classdata.txt");
             f.write(className.getText());
             f.close();
         }catch (Exception e){
@@ -78,7 +77,7 @@ public class enterClassFrame extends JFrame implements ActionListener {
     }
     public void lastPage(){
         enterClassFrame.dispose();
-        chooseFunctionFrame tmp=new chooseFunctionFrame(username,driver);
+        chooseFunctionFrame tmp=new chooseFunctionFrame(username);
         tmp.open();
     }
     @Override
