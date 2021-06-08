@@ -44,7 +44,7 @@ public class connectToSQL {
         //創建comment table
         try {
             Statement statement = connection.createStatement();
-            CreateCommentTable createTable = new CreateCommentTable(className);
+            createCommentTable createTable = new createCommentTable(className);
             statement.executeUpdate(createTable.getQuery());
             System.out.println("Table Created!");
         } catch (SQLException e) {
@@ -56,7 +56,7 @@ public class connectToSQL {
     public void insertComment(String user_id, String comment, String className) {
         //加入comment
         try{
-            InsertComment insertComment = new InsertComment(className);
+            insertComment insertComment = new insertComment(className);
             PreparedStatement statement2 = connection.prepareStatement(insertComment.getQuery());
             statement2.setString(1, user_id);
             statement2.setString(2, comment);

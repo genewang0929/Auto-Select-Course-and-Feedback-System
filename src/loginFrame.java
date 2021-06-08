@@ -69,9 +69,7 @@ public class loginFrame extends JFrame implements ActionListener {
         loginFrame.setVisible(true);//這放最後面
     }
     public void login(){//判定登入
-        selenium s=new selenium();
-        s.loginNTOU(account.getText(),password.getText());
-        driver=s.getDriver();
+        selenium.loginNTOU(account.getText(),password.getText());
     }
     public void lastPage(){
         loginFrame.dispose();
@@ -88,7 +86,7 @@ public class loginFrame extends JFrame implements ActionListener {
                 boolean append=true;
                 //資料格式:帳號+空格+密碼+\n
                 try {
-                    Scanner r=new Scanner(Paths.get("src\\userdata.txt"));
+                    Scanner r=new Scanner(Paths.get("./src/userdata.txt"));
                     String userdata=account.getText()+" "+password.getText()+"\n",data="";
                     while(r.hasNextLine()){
                         String tmp=r.nextLine();
@@ -101,7 +99,7 @@ public class loginFrame extends JFrame implements ActionListener {
                     }
                     if(append)
                         data+=userdata;
-                    File newData=new File("src\\userdata.txt");
+                    File newData=new File("./src/userdata.txt");
                     newData.delete();
                     newData.createNewFile();
                     FileWriter w = new FileWriter(newData, true);
@@ -112,7 +110,7 @@ public class loginFrame extends JFrame implements ActionListener {
                 }
             }
             loginFrame.dispose();
-            chooseFunctionFrame next=new chooseFunctionFrame(account.getText(),driver);
+            chooseFunctionFrame next=new chooseFunctionFrame(account.getText());
             next.open();
             login();
 

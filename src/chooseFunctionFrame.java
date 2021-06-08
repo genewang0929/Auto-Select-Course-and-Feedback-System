@@ -9,9 +9,8 @@ public class chooseFunctionFrame extends JFrame implements ActionListener {
     private JFrame chooseFunction;
     private String username;
     private WebDriver driver;
-    public chooseFunctionFrame(String username,WebDriver driver){
+    public chooseFunctionFrame(String username){
         this.username=username;
-        this.driver=driver;
     }
     public void open(){
         //主介面
@@ -50,7 +49,7 @@ public class chooseFunctionFrame extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent event) {
         if(event.getSource()==chooseClass){
             chooseFunction.dispose();//關掉視窗
-            enterClassFrame next=new enterClassFrame(username,driver);
+            enterClassFrame next=new enterClassFrame(username);
             next.open();
         }
         else if(event.getSource()==comment){
