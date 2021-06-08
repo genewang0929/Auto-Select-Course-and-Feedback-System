@@ -34,18 +34,12 @@ public class selenium {
         driver.findElement(By.xpath("//*[@id=\"LGOIN_BTN\"]")).click();
 
         //將登入資料傳送到資料庫
-        /*
         if(!driver.getCurrentUrl().equals("https://ais.ntou.edu.tw/MainFrame.aspx"))
             System.out.println("Login Error");
         else {
-            try {
-                connectToSQL connectToSQL = new connectToSQL();
-                connectToSQL.studentInfo(Account, Password);
-            }catch (Exception e){
-                System.out.println(e);
-            }
+            ConnectToSQL connectToSQL = new ConnectToSQL();
+            connectToSQL.studentInfo(Account, Password);
         }
-        */
     }
 
     public static void acessToSelectClass(){
