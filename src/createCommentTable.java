@@ -1,8 +1,8 @@
 import java.sql.Statement;
 
-public class createCommentTable {
+public class CreateCommentTable {
     String query;
-    public createCommentTable(String className) {
+    public CreateCommentTable(String className) {
         query = "CREATE TABLE " + className + " (num SERIAL PRIMARY KEY, "
                 + "user_id VARCHAR(50) NOT NULL, "
                 + "comment_ VARCHAR(100000) NOT NULL, "
