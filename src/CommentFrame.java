@@ -46,7 +46,7 @@ public class CommentFrame extends JFrame implements ActionListener {
         titlePanel.add(title);
         add(titlePanel, BorderLayout.NORTH);
 
-        //留言
+        //顯示留言，用scrollbar和scrollpane
         //TODO
         showComment = new JPanel();
         showComment.setLayout(new GridLayout(15, 1));
@@ -77,6 +77,7 @@ public class CommentFrame extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == createComment){
             CreateCommentFrame tmp = new CreateCommentFrame(userName, className);
+            dispose();
             tmp.open();
         }
         else if(e.getSource() == back){
