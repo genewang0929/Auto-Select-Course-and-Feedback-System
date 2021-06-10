@@ -6,6 +6,7 @@ import java.util.ArrayDeque;
 
 public class CreateClassFrame extends JFrame implements ActionListener {
     private JPanel panel;
+    private JPanel panel2;
     private JLabel input_Class;
     private JLabel input_Comment;
     private JTextField inputClass;
@@ -23,21 +24,20 @@ public class CreateClassFrame extends JFrame implements ActionListener {
         setLocationRelativeTo(null);//置中
         setLayout(new BorderLayout());
 
+        panel = new JPanel(new BorderLayout());
         input_Class = new JLabel("輸入課名 : ");
-        add(input_Class, BorderLayout.NORTH);
-        //沒辦法建JTextField，找不到bug
-        // TODO
-//        panel = new JPanel(new BorderLayout());
-//        inputClass = new JTextField();
-//        inputClass.addActionListener(this);
-//        panel.add(inputClass);
-//        add(panel, BorderLayout.WEST);
+        inputClass = new JTextField();
+        panel.add(input_Class, BorderLayout.WEST);
+        panel.add(inputClass, BorderLayout.CENTER);
+        add(panel, BorderLayout.NORTH);
+
+        panel2 = new JPanel(new GridLayout(2, 1));
         input_Comment = new JLabel("輸入留言 : ");
-        add(input_Comment);
-        /* 不太熟悉JTextArea
-        //TODO
-        inputComment = new JTextArea(1, 1);
-        add(inputComment);*/
+        panel2.add(input_Comment);
+        inputComment = new JTextArea();
+        inputComment.setLineWrap(true);
+        panel2.add(inputComment);
+        add(panel2, BorderLayout.CENTER);
 
         submit = new JButton("確認");
         submit.addActionListener(this);

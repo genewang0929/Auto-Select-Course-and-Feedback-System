@@ -7,7 +7,6 @@ import java.util.ArrayList;
 public class commentAreaFrame extends JFrame implements ActionListener {
     private JFrame commentAreaFrame;
     private JButton createComment, back;
-    private JPanel buttonPanel;
     private JPanel showClass;
     private String username;
     private ArrayList<JButton> allCheck;
@@ -23,7 +22,7 @@ public class commentAreaFrame extends JFrame implements ActionListener {
         //以上除了size外先不要動
 
         //Button
-        buttonPanel = new JPanel();
+        JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridLayout(1, 2));
         createComment = new JButton("新增課程");
         back = new JButton("回上頁");
@@ -33,10 +32,15 @@ public class commentAreaFrame extends JFrame implements ActionListener {
         buttonPanel.add(createComment);
         commentAreaFrame.add(buttonPanel, BorderLayout.SOUTH);
 
-        //顯示課程
+        //顯示課程，用scrollbar和scrollpane
+        //TODO
         showClass = new JPanel();
-        showClass.setLayout(new GridLayout(5, 1));
-        commentAreaFrame.add(showClass);
+        showClass.setLayout(new GridLayout(0, 1));
+        JScrollBar scrollbar = new JScrollBar(JScrollBar.VERTICAL);
+        JScrollPane scrollPane = new JScrollPane(showClass, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        commentAreaFrame.getContentPane().add(scrollPane, BorderLayout.CENTER);
+
+
         loadClass();
         commentAreaFrame.setVisible(true);//這放最後面
     }
@@ -64,12 +68,13 @@ public class commentAreaFrame extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent event) {
         if(event.getSource() == createComment){
             CreateClassFrame tmp = new CreateClassFrame(username);
+            commentAreaFrame.dispose();
             tmp.open();
         }
         else if(event.getSource() == back){
-//            commentAreaFrame.dispose();
-//            chooseFunctionFrame tmp=new chooseFunctionFrame(username);
-//            tmp.open();
+            commentAreaFrame.dispose();
+            chooseFunctionFrame tmp=new chooseFunctionFrame(username);
+            tmp.open();
         }
         else {
             commentAreaFrame.dispose();
