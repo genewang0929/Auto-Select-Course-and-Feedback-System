@@ -48,13 +48,16 @@ public class ConnectToSQL {
             CreateCommentTable createTable = new CreateCommentTable(className);
             statement.executeUpdate(createTable.getQuery());
             System.out.println("Table Created!");
+            //更新介面
+            commentAreaFrame caf = new commentAreaFrame(user_id);
+            caf.open();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        insertComment(user_id, comment, className);
+        insertComment(user_id, comment, className, false);
     }
 
-    public void insertComment(String user_id, String comment, String className) {
+    public void insertComment(String user_id, String comment, String className, boolean isCreated) {
         //加入comment
         try{
             InsertComment insertComment = new InsertComment(className);
@@ -63,6 +66,10 @@ public class ConnectToSQL {
             statement2.setString(2, comment);
             statement2.executeUpdate();
             System.out.println("A new comment has been inserted");
+            if(isCreated) {
+                CommentFrame cf = new CommentFrame(user_id, className);
+                cf.open();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -76,7 +83,6 @@ public class ConnectToSQL {
             while(resultSet.next()) {
                 ClassData cd = new ClassData(resultSet.getString(2), resultSet.getString(3), resultSet.getString(4));
                 arr.add(cd);
-                //System.out.println(resultSet.getString(2) + "     " + resultSet.getString(3) + "     " + resultSet.getString(4));
             }
             resultSet.close();
             statement.close();
@@ -96,7 +102,6 @@ public class ConnectToSQL {
                 String className = resultSet.getString("TABLE_NAME");
                 if(!className.equals("studentinfo")) {
                     allClassName.add(className);
-                    //System.out.println("課名 : " + className);
                 }
             }
         } catch (SQLException e) {
