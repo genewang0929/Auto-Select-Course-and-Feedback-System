@@ -23,12 +23,14 @@ public class CreateCommentFrame extends JFrame implements ActionListener {
 
         create_comment = new JLabel("新增留言 : ");
         add(create_comment, BorderLayout.NORTH);
+
+        comment = new JTextArea();
+        add(comment, BorderLayout.CENTER);
+
         submit = new JButton("確認");
+        submit.addActionListener(this);
         add(submit, BorderLayout.SOUTH);
 
-        //不熟悉JTextArea
-        //comment = new JTextArea();
-        //TODO
 
         setVisible(true);
     }
@@ -37,9 +39,8 @@ public class CreateCommentFrame extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == submit) {
             ConnectToSQL conn = new ConnectToSQL();
-            conn.insertComment(userName, comment.getText(), className);
-            //尚須update
-            //TODO
+            conn.insertComment(userName, comment.getText(), className, true);
+            dispose();
         }
     }
 }
