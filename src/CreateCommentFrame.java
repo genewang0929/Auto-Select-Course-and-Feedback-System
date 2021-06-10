@@ -8,6 +8,7 @@ public class CreateCommentFrame extends JFrame implements ActionListener {
     private String className;
     private JLabel create_comment;
     private JButton submit;
+    private JButton back;
     private JTextArea comment;
     public CreateCommentFrame(String userName, String className) {
         super("評論區(目前登入:" + userName + ")");
@@ -29,8 +30,12 @@ public class CreateCommentFrame extends JFrame implements ActionListener {
 
         submit = new JButton("確認");
         submit.addActionListener(this);
-        add(submit, BorderLayout.SOUTH);
-
+        back = new JButton("回上頁");
+        back.addActionListener(this);
+        JPanel panel = new JPanel(new GridLayout(1, 2));
+        panel.add(back);
+        panel.add(submit);
+        add(panel, BorderLayout.SOUTH);
 
         setVisible(true);
     }
@@ -41,6 +46,11 @@ public class CreateCommentFrame extends JFrame implements ActionListener {
             ConnectToSQL conn = new ConnectToSQL();
             conn.insertComment(userName, comment.getText(), className, true);
             dispose();
+        }
+        else {
+            dispose();
+            CommentFrame cf = new CommentFrame(userName, className);
+            cf.open();
         }
     }
 }
