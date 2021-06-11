@@ -9,7 +9,9 @@ public class commentAreaFrame extends JFrame implements ActionListener {
     private JButton createComment, back;
     private JPanel showClass;
     private String username;
-    private ArrayList<JButton> allCheck;
+    private String className;
+    private int index;
+    private ArrayList<CheckClass> allCheck = new ArrayList<CheckClass>();
     public commentAreaFrame(String username){
         this.username=username;
     }
@@ -57,11 +59,18 @@ public class commentAreaFrame extends JFrame implements ActionListener {
             name.setHorizontalAlignment(JTextField.CENTER);
             name.setEditable(false);
             JButton check = new JButton("查看");
-            check.addActionListener(this);
+            //check.addActionListener(this);
+            allCheck.add(new CheckClass(check, item));
             panel.add(name, BorderLayout.CENTER);
             panel.add(check, BorderLayout.EAST);
             showClass.add(panel);
         }
+        checkList();
+    }
+
+    public void checkList() {
+        for(int i = 0; i < allCheck.size(); i++)
+            allCheck.get(i).getButton().addActionListener(this);
     }
 
     @Override
@@ -79,9 +88,11 @@ public class commentAreaFrame extends JFrame implements ActionListener {
         else {
             commentAreaFrame.dispose();
             //鎖定課名，使點擊查看可以連到該留言板
-            //TODO
-            String className = "資安";
-            CommentFrame tmp = new CommentFrame(username, className);
+            for(int i = 0; i < allCheck.size(); i++) {
+                if(event.getSource() == allCheck.get(i).getButton())
+                    index = i;
+            }
+            CommentFrame tmp = new CommentFrame(username, allCheck.get(index).getClassName());
             tmp.open();
         }
     }
