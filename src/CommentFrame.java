@@ -52,7 +52,6 @@ public class CommentFrame extends JFrame implements ActionListener {
         showComment.setLayout(new GridLayout(15, 1));
         loadComment();
         add(showComment);
-
         setVisible(true);
     }
 
