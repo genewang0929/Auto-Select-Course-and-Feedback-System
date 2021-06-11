@@ -1,12 +1,14 @@
 import org.postgresql.util.PSQLException;
 
 import java.sql.*;
-public class connectToSQL {
+import java.util.ArrayList;
+
+public class ConnectToSQL {
     Connection connection;
     String jdbcURL;
     String sqlUser;
     String sqlPassword;
-    public connectToSQL() {
+    public ConnectToSQL() {
         //192.168.50.230
         //與postgreSQL連線
         jdbcURL = "jdbc:postgresql://25.66.132.145:5432/Student";
@@ -14,7 +16,6 @@ public class connectToSQL {
         sqlPassword = "al2520626";
         try {
             connection = DriverManager.getConnection(jdbcURL, sqlUser, sqlPassword);
-            System.out.println("Connected to PostgreSQL server");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -44,54 +45,68 @@ public class connectToSQL {
         //創建comment table
         try {
             Statement statement = connection.createStatement();
-            createCommentTable createTable = new createCommentTable(className);
+            CreateCommentTable createTable = new CreateCommentTable(className);
             statement.executeUpdate(createTable.getQuery());
             System.out.println("Table Created!");
+            //更新介面
+            commentAreaFrame caf = new commentAreaFrame(user_id);
+            caf.open();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        insertComment(user_id, comment, className);
+        insertComment(user_id, comment, className, false);
     }
 
-    public void insertComment(String user_id, String comment, String className) {
+    public void insertComment(String user_id, String comment, String className, boolean isCreated) {
         //加入comment
         try{
-            insertComment insertComment = new insertComment(className);
+            InsertComment insertComment = new InsertComment(className);
             PreparedStatement statement2 = connection.prepareStatement(insertComment.getQuery());
             statement2.setString(1, user_id);
             statement2.setString(2, comment);
             statement2.executeUpdate();
             System.out.println("A new comment has been inserted");
+            if(isCreated) {
+                CommentFrame cf = new CommentFrame(user_id, className);
+                cf.open();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public void getComment(String className) {
+    public ArrayList<ClassData> getComment(String className) {
+        ArrayList<ClassData> arr = new ArrayList<ClassData>();
         try {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM " + className);
-            while(resultSet.next())
-                System.out.println(resultSet.getString(2) + "     " + resultSet.getString(3) + "     " + resultSet.getString(4));
+            while(resultSet.next()) {
+                ClassData cd = new ClassData(resultSet.getString(2), resultSet.getString(3), resultSet.getString(4));
+                arr.add(cd);
+            }
             resultSet.close();
             statement.close();
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return arr;
     }
 
-    public void getAllClassName() {
+    public ArrayList<String> getAllClassName() {
+        ArrayList<String> allClassName = new ArrayList<String>();
         try {
             DatabaseMetaData metaData = connection.getMetaData();
             ResultSet resultSet = metaData.getTables(null, null, null, new String[]{"TABLE"});
             while (resultSet.next()) {
                 String className = resultSet.getString("TABLE_NAME");
-                if(!className.equals("studentinfo"))
-                    System.out.println("課名 : " + className);
+                if(!className.equals("studentinfo")) {
+                    allClassName.add(className);
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return allClassName;
     }
 }
