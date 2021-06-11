@@ -36,13 +36,13 @@ public class commentAreaFrame extends JFrame implements ActionListener {
 
         //顯示課程，用scrollbar和scrollpane
         //TODO
+//        JScrollBar scrollbar = new JScrollBar(JScrollBar.VERTICAL);
+//        JScrollPane scrollPane = new JScrollPane(showClass, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+//        commentAreaFrame.getContentPane().add(scrollPane, BorderLayout.CENTER);
+
         showClass = new JPanel();
         showClass.setLayout(new GridLayout(0, 1));
-        JScrollBar scrollbar = new JScrollBar(JScrollBar.VERTICAL);
-        JScrollPane scrollPane = new JScrollPane(showClass, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        commentAreaFrame.getContentPane().add(scrollPane, BorderLayout.CENTER);
-
-
+        commentAreaFrame.add(showClass);
         loadClass();
         commentAreaFrame.setVisible(true);//這放最後面
     }
