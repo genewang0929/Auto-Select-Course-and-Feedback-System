@@ -11,9 +11,9 @@ public class ConnectToSQL {
     public ConnectToSQL() {
         //192.168.50.230
         //與postgreSQL連線
-        jdbcURL = "jdbc:postgresql://25.66.132.145:5432/Student";
-        sqlUser = "postgres";
-        sqlPassword = "al2520626";
+        jdbcURL = "jdbc:postgresql://ec2-34-230-115-172.compute-1.amazonaws.com:5432/df2tbs28n713n4";
+        sqlUser = "tlpwxkgmpiuttr";
+        sqlPassword = "e4b857dc9b05231a63bf16013d45fd7c3edafa4bbbff461078df264fdcf88ddb";
         try {
             connection = DriverManager.getConnection(jdbcURL, sqlUser, sqlPassword);
         } catch (SQLException e) {
