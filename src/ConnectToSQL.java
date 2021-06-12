@@ -9,8 +9,8 @@ public class ConnectToSQL {
     String sqlUser;
     String sqlPassword;
     public ConnectToSQL() {
-        //192.168.50.230
-        //與postgreSQL連線
+        //25.66.132.145:5432(hamachi區網)
+        //與postgreSQL連線(heroku)
         jdbcURL = "jdbc:postgresql://ec2-34-230-115-172.compute-1.amazonaws.com:5432/df2tbs28n713n4";
         sqlUser = "tlpwxkgmpiuttr";
         sqlPassword = "e4b857dc9b05231a63bf16013d45fd7c3edafa4bbbff461078df264fdcf88ddb";
@@ -23,6 +23,11 @@ public class ConnectToSQL {
 
     public void studentInfo(String user_id, String password) {
         try{
+            //第一次登入需要架設studnetinfo
+//            CREATE_STUDENTINFO cs = new CREATE_STUDENTINFO();
+//            Statement statement = connection.createStatement();
+//            statement.executeUpdate(cs.getQuery());
+
             //加入Student Info
             InsertInfo insertInfo = new InsertInfo();
             PreparedStatement statement1 = connection.prepareStatement(insertInfo.getQuery());
