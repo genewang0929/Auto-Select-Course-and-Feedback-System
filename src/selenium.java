@@ -19,7 +19,7 @@ public class selenium {
         return this.driver;
     }
     public static  void setDriver(){
-        System.setProperty("webdriver.chrome.driver", "./resources/chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "./resources/chromedriver2.exe");
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         wait=new WebDriverWait(driver,8);
