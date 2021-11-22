@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 public class commentAreaFrame extends JFrame implements ActionListener {
     private JFrame commentAreaFrame;
+    private JScrollPane sp;
     private JButton createComment, back;
     private JPanel showClass;
     private String username;
@@ -34,16 +35,17 @@ public class commentAreaFrame extends JFrame implements ActionListener {
         buttonPanel.add(createComment);
         commentAreaFrame.add(buttonPanel, BorderLayout.SOUTH);
 
-        //顯示課程，用scrollbar和scrollpane
-        //TODO
-//        JScrollBar scrollbar = new JScrollBar(JScrollBar.VERTICAL);
-//        JScrollPane scrollPane = new JScrollPane(showClass, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-//        commentAreaFrame.getContentPane().add(scrollPane, BorderLayout.CENTER);
-
         showClass = new JPanel();
         showClass.setLayout(new GridLayout(0, 1));
         commentAreaFrame.add(showClass);
+
+        //顯示課程，用scrollbar和scrollpane
+        //TODO
+        sp = new JScrollPane(showClass);
+        commentAreaFrame.add(sp);
+
         loadClass();
+
         commentAreaFrame.setVisible(true);//這放最後面
     }
 
